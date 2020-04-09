@@ -2,6 +2,14 @@ Automate sending of messages using excel sheets<br>
 Ensure excel file name is correct <br>
 and configure your message in the mssg variable<br>
 
+
+Notes<br>
+Ensure There are These 2 columns <br>
+1)Full Name<br>
+2)Contact Number<br>
+Check if all contacts are right in the excel sheet<br>
+Dont put +91 in front of your contacts<br>
+
 <br><br>
 Plans For Future<br>
 GUI<br>
