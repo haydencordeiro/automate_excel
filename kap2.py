@@ -53,9 +53,9 @@ def Send(df,msg,orderMsg,EventName,noOfvars):
 				missed.append(row['Name'])
 				continue
 			print(temp_msg)
-			# driver.get(send_message_to_unsavaed_contact('91'+no,temp_msg))
-			# wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[3]/button/span'))).click()
-			# driver.execute_script("window.onbeforeunload = function() {};")
+			driver.get(send_message_to_unsavaed_contact('91'+no,temp_msg))
+			wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[3]/button/span'))).click()
+			driver.execute_script("window.onbeforeunload = function() {};")
 		except:
 			missed.append(row['Name'])
 	if(len(missed)>0):
@@ -70,7 +70,7 @@ def Load_excel(str_list,msg,orderMsg,noOfvars):
 	if(noOfvars==''):
 		noOfvars=0
 	# print(str_list,msg,orderMsg,noOfvars)
-	# whatsapp_login()
+	whatsapp_login()
 	str_list=str(str_list)    
 	df = pd.read_excel("1.xlsx")
 	try:
