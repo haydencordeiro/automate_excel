@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from time import sleep
 import urllib.parse
 import pandas as pd 
-
+import pymsgbox
 driver = None
 Link = "https://web.whatsapp.com/"
 wait = None
@@ -59,7 +59,7 @@ def Send(df,msg,orderMsg,EventName,noOfvars):
 		except:
 			missed.append(row['Name'])
 	if(len(missed)>0):
-		print(missed)
+		print('missedlist',missed)
 			
 
 
@@ -69,15 +69,33 @@ def Load_excel(str_list,msg,orderMsg,noOfvars):
 	missed=[]
 	if(noOfvars==''):
 		noOfvars=0
+	if(len(msg)==0 or msg==' '):
+		pymsgbox.alert('Message is Empty!', 'Alert')
+		return
 	# print(str_list,msg,orderMsg,noOfvars)
-	whatsapp_login()
-	str_list=str(str_list)    
+	str_list=str(str_list)
 	df = pd.read_excel("1.xlsx")
+	list_of_columns=list(df.columns.values)   
+	##ensuring user input of colum names are right
+	if(str_list not in list_of_columns and str_list!=''):
+		pymsgbox.alert('{} is an invalid column name!'.format(str_list), 'Alert')
+		return 
+	for i in orderMsg:
+		if(i not in list_of_columns and noOfvars!=0 and len(orderMsg)==0):
+			pymsgbox.alert('{} is an invalid column name!'.format(i), 'Alert')
+			return
+
 	try:
 		temp_df= df[df[str_list] == 'Yes']
 	except:
+		pymsgbox.alert('You have entered no value in column name all rows are selected!', 'Alert')
 		temp_df=df
-	Send(temp_df,msg,orderMsg,str_list,noOfvars)
+	check=pymsgbox.confirm(text='Click Ok to Send', title='Confirm', buttons=['OK', 'Cancel'])
+	if(check=='OK'):
+		whatsapp_login()
+		Send(temp_df,msg,orderMsg,str_list,noOfvars)
+	else:
+		pass
 
 	
 
