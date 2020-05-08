@@ -64,7 +64,8 @@ def Send(df,msg,orderMsg,EventName,noOfvars):
 
 
 
-def Load_excel(str_list,msg,orderMsg,noOfvars):
+def Load_excel(str_list,msg,orderMsg,noOfvars,fileName):
+	print(fileName)
 	global missed
 	missed=[]
 	if(noOfvars==''):
@@ -74,7 +75,8 @@ def Load_excel(str_list,msg,orderMsg,noOfvars):
 		return
 	# print(str_list,msg,orderMsg,noOfvars)
 	str_list=str(str_list)
-	df = pd.read_excel("1.xlsx")
+	df = pd.read_excel((fileName))
+	print(df.head())
 	list_of_columns=list(df.columns.values)   
 	##ensuring user input of colum names are right
 	if(str_list not in list_of_columns and str_list!=''):
