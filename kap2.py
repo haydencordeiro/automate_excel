@@ -76,14 +76,15 @@ def Load_excel(str_list,msg,orderMsg,noOfvars,fileName):
 	# print(str_list,msg,orderMsg,noOfvars)
 	str_list=str(str_list)
 	df = pd.read_excel((fileName))
-	print(df.head())
+	# print(df.head())
 	list_of_columns=list(df.columns.values)   
 	##ensuring user input of colum names are right
 	if(str_list not in list_of_columns and str_list!=''):
-		pymsgbox.alert('{} is an invalid column name!'.format(str_list), 'Alert')
+		pymsgbox.alert('"{}" is an invalid column name!'.format(str_list), 'Alert')
 		return 
+	orderMsg=orderMsg.split(',')
 	for i in orderMsg:
-		if(i not in list_of_columns and noOfvars!=0 and len(orderMsg)==0):
+		if(i not in list_of_columns and noOfvars!=0 or len(orderMsg)==0):
 			pymsgbox.alert('{} is an invalid column name!'.format(i), 'Alert')
 			return
 
