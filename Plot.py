@@ -6,10 +6,16 @@ from pandas import DataFrame
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib import rcParams
+import pymsgbox
 rcParams.update({'figure.autolayout': True})
 
-def PlotBar(inpString=''):
-	df = pd.read_excel("1.xlsx")
+def PlotBar(fileName,inpString=''):
+
+	try:
+		df = pd.read_excel(fileName)
+	except:
+		pymsgbox.alert('You have entered invalid file name!', 'Alert')
+		return
 	if(inpString!=''):
 		df= df[df[inpString] == 'Yes']
 	departmentsNames=list(set(df['Department']))
@@ -38,8 +44,12 @@ def PlotBar(inpString=''):
 
 
 
-def PlotPie(inpString=""):
-	df = pd.read_excel("1.xlsx")
+def PlotPie(fileName,inpString=""):
+	try:
+		df = pd.read_excel(fileName)
+	except:
+		pymsgbox.alert('You have entered invalid file name!', 'Alert')
+		return 
 	if(inpString!=''):
 		df= df[df[inpString] == 'Yes']
 	labels =list(set(df['Department']))
